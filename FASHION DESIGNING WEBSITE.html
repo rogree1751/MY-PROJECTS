@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0e5e5; /* Light pink background */
+            color: #4a4a4a; /* Dark gray text color */
+        }
+
+        header {
+            background-color: #65c5b1; /* Green header background */
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Permanent Marker', cursive; /* Permanent Marker font */
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #4a4a4a; /* Dark gray text color */
+            font-weight: bold;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        section h2 {
+            color: #4a4a4a; /* Dark gray text color */
+            font-family: 'Fjalla One', sans-serif; /* Fjalla One font */
+        }
+
+        section p {
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #65c5b1; /* Green footer background */
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #65c5b1; /* Green CTA button background */
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .service-item {
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #65c5b1; /* Green button background */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Klaus Fashion Designing</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Klaus Fashion Designing</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Your Fashion, Your Style</h2>
+        <p>Discover high-quality fashion design services that reflect your unique style.</p>
+        <a href="#services" class="cta-button">Explore More</a>
+    </section>
+
+    <section id="services">
+        <h2>Our Fashion Design Services</h2>
+        <div class="service-item">
+            <h3>Service 1</h3>
+            <p>Description of the service.</p>
+            <p>Price: $XX.XX</p>
+        </div>
+
+        <!-- Repeat the above structure for other services -->
+    </section>
+
+    <section id="about">
+        <h2>About Klaus Fashion Designing</h2>
+        <p>Discover the story of Klaus Fashion Designing, our mission, and the creative team behind our designs.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Klaus Fashion Designing</h2>
+        <p>Get in touch with us for inquiries or more information.</p>
+
+        <form action="submit_form.php" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <!-- Add more fields as needed -->
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <p>Visit us at [Business Address]<br>Contact: [Phone Number] | Email: [Email Address]</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Klaus Fashion Designing. All rights reserved.</p>
+    </footer>
+</body>
+</html>
