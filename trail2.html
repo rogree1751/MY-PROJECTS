@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .to-do-list {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-container {
+            margin-top: 20px;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .task input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .task button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .task.completed {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+    </style>
+    <title>To-Do List App</title>
+</head>
+<body>
+    <div class="container">
+        <div class="to-do-list">
+            <h1>To-Do List 1</h1>
+            <div id="task-container-1">
+                <!-- Tasks for List 1 will be dynamically added here -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="task-input-1" placeholder="Add a new task...">
+                <button onclick="addTask(1)">Add Task</button>
+            </div>
+        </div>
+
+        <div class="to-do-list">
+            <h1>To-Do List 2</h1>
+            <div id="task-container-2">
+                <!-- Tasks for List 2 will be dynamically added here -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="task-input-2" placeholder="Add a new task...">
+                <button onclick="addTask(2)">Add Task</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tasks for List 1 from local storage on page load
+            loadTasks(1);
+
+            // Load tasks for List 2 from local storage on page load
+            loadTasks(2);
+        });
+
+        // Function to add a new task
+        function addTask(listNumber) {
+            const taskInput = document.getElementById(`task-input-${listNumber}`);
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== '') {
+                const taskContainer = document.getElementById(`task-container-${listNumber}`);
+
+                // Create task element
+                const taskElement = document.createElement('div');
+                taskElement.classList.add('task');
+                taskElement.innerHTML = `
+                    <input type="text" value="${taskText}" readonly>
+                    <button onclick="editTask(this, ${listNumber})">Edit</button>
+                    <button onclick="deleteTask(this, ${listNumber})">Delete</button>
+                    <button onclick="toggleTaskCompletion(this, ${listNumber})">Done</button>
+                `;
+
+                // Append task element to the container
+                taskContainer.appendChild(taskElement);
+
+                // Save tasks to local storage
+                saveTasks(listNumber);
+
+                // Clear the input field
+                taskInput.value = '';
+            }
+        }
+
+        // Function to edit a task
+        function editTask(button, listNumber) {
+            const taskInput = button.parentElement.querySelector('input');
+            taskInput.readOnly = !taskInput.readOnly;
+
+            if (!taskInput.readOnly) {
+                taskInput.focus();
+            }
+
+            // Save tasks to local storage after editing
+            saveTasks(listNumber);
+        }
+
+        // Function to delete a task
+        function deleteTask(button, listNumber) {
+            const taskElement = button.parentElement;
+            taskElement.remove();
+
+            // Save tasks to local storage after deletion
+            saveTasks(listNumber);
+        }
+
+        // Function to toggle task completion
+        function toggleTaskCompletion(button, listNumber) {
+            const taskElement = button.parentElement;
+            taskElement.classList.toggle('completed');
+
+            // Save tasks to local storage after toggling completion
+            saveTasks(listNumber);
+        }
+
+        // Function to save tasks to local storage
+        function saveTasks(listNumber) {
+            const tasks = document.querySelectorAll(`#task-container-${listNumber} .task`);
+            const tasksArray = [];
+
+            tasks.forEach(task => {
+                const taskText = task.querySelector('input').value;
+                const isCompleted = task.classList.contains('completed');
+                tasksArray.push({ text: taskText, completed: isCompleted });
+            });
+
+            localStorage.setItem(`tasks${listNumber}`, JSON.stringify(tasksArray));
+        }
+
+        // Function to load tasks from local storage
+        function loadTasks(listNumber) {
+            const tasksArray = JSON.parse(localStorage.getItem(`tasks${listNumber}`)) || [];
+
+            const taskContainer = document.getElementById(`task-container-${listNumber}`);
+            taskContainer.innerHTML = '';
+
+            tasksArray.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.classList.add('task', task.completed ? 'completed' : '');
+                taskElement.innerHTML = `
+                    <input type="text" value="${task.text}" ${task.completed ? 'readonly' : ''}>
+                    <button onclick="editTask(this, ${listNumber})">Edit</button>
+                    <button onclick="deleteTask(this, ${listNumber})">Delete</button>
+                    <button onclick="toggleTaskCompletion(this, ${listNumber})">Done</button>
+                `;
+
+                taskContainer.appendChild(taskElement);
+            });
+        }
+    </script>
+</body>
+</html>
